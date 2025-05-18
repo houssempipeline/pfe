@@ -1,0 +1,9 @@
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/controller/WebController.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/config/SecurityConfig.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/Application.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/service/UserService.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/controller/UserController.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/dto/RegistrationDto.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/repository/UserRepository.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/model/User.java
+/home/chonosus/DEVSECOPS-PFE/src/main/java/com/demo/controller/DashboardController.java

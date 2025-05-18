@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+DevSecOps,com.demo.dto,RegistrationDto,0,31,0,0,0,13,0,9,0,9
+DevSecOps,com.demo.service,UserService,59,61,6,4,17,14,6,4,3,2
+DevSecOps,com.demo.config,SecurityConfig,143,0,2,0,31,0,11,0,10,0
+DevSecOps,com.demo.controller,UserController,50,19,4,2,12,8,5,3,3,2
+DevSecOps,com.demo.controller,DashboardController,14,0,2,0,5,0,3,0,2,0
+DevSecOps,com.demo.controller,WebController,8,3,0,0,4,1,4,1,4,1
+DevSecOps,com.demo.model,User,18,107,6,6,6,27,12,12,6,12
+DevSecOps,com.demo,Application,5,3,0,0,2,1,1,1,1,1

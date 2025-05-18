@@ -1,0 +1,9 @@
+com/demo/dto/RegistrationDto.class
+com/demo/model/User.class
+com/demo/repository/UserRepository.class
+com/demo/controller/WebController.class
+com/demo/Application.class
+com/demo/controller/UserController.class
+com/demo/controller/DashboardController.class
+com/demo/config/SecurityConfig.class
+com/demo/service/UserService.class

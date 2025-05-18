@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">DevSecOps</a> &gt; <a href="index.source.html" class="el_package">com.demo.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.demo.service;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.demo.model.User;
+import com.demo.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collections;
+
+@Service
+public class UserService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+<span class="fc" id="L22">    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {</span>
+<span class="fc" id="L23">        this.userRepository = userRepository;</span>
+<span class="fc" id="L24">        this.passwordEncoder = passwordEncoder;</span>
+<span class="fc" id="L25">    }</span>
+
+    // Register a new user
+    public User registerNewUser(com.demo.dto.RegistrationDto registrationDto) {
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (userRepository.existsByUsername(registrationDto.getUsername())) {</span>
+<span class="fc" id="L30">            throw new RuntimeException(&quot;Username already exists&quot;);</span>
+        }
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (userRepository.existsByEmail(registrationDto.getEmail())) {</span>
+<span class="fc" id="L33">            throw new RuntimeException(&quot;Email already exists&quot;);</span>
+        }
+
+<span class="fc" id="L36">        User user = new User();</span>
+<span class="fc" id="L37">        user.setUsername(registrationDto.getUsername());</span>
+<span class="fc" id="L38">        user.setEmail(registrationDto.getEmail());</span>
+<span class="fc" id="L39">        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));</span>
+<span class="fc" id="L40">        user.setInitialBalance(registrationDto.getInitialBalance());</span>
+
+<span class="fc" id="L42">        return userRepository.save(user);</span>
+    }
+
+    // Get user by username (for use in controllers, etc.)
+    public User getUserByUsername(String username) {
+        // Correctly handle the null return value when no user is found
+<span class="nc" id="L48">        User user = userRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L50">            throw new RuntimeException(&quot;User not found&quot;);</span>
+        }
+<span class="nc" id="L52">        return user;</span>
+    }
+
+    // Get the current logged-in user
+    public User getCurrentUser() {
+<span class="nc" id="L57">        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="nc" id="L58">        String username = authentication.getName();</span>
+        // Correctly handle the null return value when no user is found
+<span class="nc" id="L60">        User user = userRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L62">            throw new RuntimeException(&quot;User not found&quot;);</span>
+        }
+<span class="nc" id="L64">        return user;</span>
+    }
+
+    // Load user by username for authentication (Spring Security)
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Fetch the user from the database
+<span class="nc" id="L71">        User user = userRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L73">            throw new UsernameNotFoundException(&quot;User not found&quot;);</span>
+        }
+
+        // Return a UserDetails object, which Spring Security will use
+<span class="nc" id="L77">        return new org.springframework.security.core.userdetails.User(</span>
+<span class="nc" id="L78">                user.getUsername(),</span>
+<span class="nc" id="L79">                user.getPassword(),</span>
+<span class="nc" id="L80">                Collections.singletonList(new SimpleGrantedAuthority(&quot;USER&quot;)) // Assign roles/authorities as needed</span>
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
