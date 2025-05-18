@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     public User getUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new RuntimeException(USER_NOT_FOUND); // can also extract a new UserNotFoundException if needed
+            throw new UserNotFoundException(USER_NOT_FOUND);
         }
         return user;
     }
@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new RuntimeException(USER_NOT_FOUND); // same here
+            throw new UserNotFoundException(USER_NOT_FOUND);
         }
         return user;
     }
