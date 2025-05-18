@@ -21,10 +21,11 @@ public class SecurityConfig {
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf
-            .ignoringRequestMatchers(
-                new AntPathRequestMatcher("/h2-console/**")            )
-        )
+       .csrf(csrf -> {
+    if (isDevEnvironment()) {
+        csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"));
+    }
+})
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
                 new AntPathRequestMatcher("/"),
