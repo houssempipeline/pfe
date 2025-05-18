@@ -4,6 +4,7 @@ import com.demo.model.User;
 import com.demo.repository.UserRepository;
 import com.demo.dto.RegistrationDto;
 import com.demo.exception.UserRegistrationException;
+import com.demo.exception.UserNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.*;
