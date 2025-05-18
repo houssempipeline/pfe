@@ -1,81 +1,36 @@
-// --- RegistrationDtoTest.java ---
-package com.demo.dto;
+package com.demo.controller;
 
-import jakarta.validation.*;
-import org.junit.jupiter.api.BeforeEach;
+import com.demo.model.User;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Set;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+@WebMvcTest(DashboardController.class)
+class DashboardControllerTest {
 
-class RegistrationDtoTest {
+    @Autowired
+    private MockMvc mockMvc;
 
-    private Validator validator;
-
-    @BeforeEach
-    void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+    @Test
+    @DisplayName("Should return 401 Unauthorized when user is not authenticated")
+    void shouldReturn401IfUserIsNull() throws Exception {
+        mockMvc.perform(get("/user/dashboard"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    void validDtoShouldHaveNoViolations() {
-        RegistrationDto dto = new RegistrationDto();
-        dto.setUsername("validUser");
-        dto.setEmail("user@example.com");
-        dto.setPassword("securePass");
-        dto.setInitialBalance(100.0);
-
-        Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertTrue(violations.isEmpty());
-    }
-
-    @Test
-    void shortPasswordShouldTriggerViolation() {
-        RegistrationDto dto = new RegistrationDto();
-        dto.setUsername("user");
-        dto.setEmail("user@example.com");
-        dto.setPassword("123");
-        dto.setInitialBalance(50.0);
-
-        Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("password")));
-    }
-
-    @Test
-    void invalidEmailShouldTriggerViolation() {
-        RegistrationDto dto = new RegistrationDto();
-        dto.setUsername("user");
-        dto.setEmail("invalid-email");
-        dto.setPassword("securePass");
-        dto.setInitialBalance(50.0);
-
-        Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void negativeInitialBalanceShouldTriggerViolation() {
-        RegistrationDto dto = new RegistrationDto();
-        dto.setUsername("user");
-        dto.setEmail("user@example.com");
-        dto.setPassword("securePass");
-        dto.setInitialBalance(-10.0);
-
-        Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void nullInitialBalanceShouldTriggerViolation() {
-        RegistrationDto dto = new RegistrationDto();
-        dto.setUsername("user");
-        dto.setEmail("user@example.com");
-        dto.setPassword("securePass");
-        dto.setInitialBalance(null);
-
-        Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertFalse(violations.isEmpty());
+    @WithMockUser(username = "mockuser")
+    @DisplayName("Should redirect to login with error when user is null")
+    void shouldRedirectToLoginIfUserIsNull() throws Exception {
+        mockMvc.perform(get("/user/dashboard"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login?error"));
     }
 }
