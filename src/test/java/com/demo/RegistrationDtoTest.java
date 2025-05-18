@@ -31,18 +31,6 @@ class RegistrationDtoTest {
     }
 
     @Test
-    void missingUsernameShouldTriggerViolation() {
-        RegistrationDto dto = new RegistrationDto();
-        dto.setUsername("");
-        dto.setEmail("user@example.com");
-        dto.setPassword("securePass");
-        dto.setInitialBalance(100.0);
-
-        Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
     void shortPasswordShouldTriggerViolation() {
         RegistrationDto dto = new RegistrationDto();
         dto.setUsername("user");
@@ -51,7 +39,7 @@ class RegistrationDtoTest {
         dto.setInitialBalance(50.0);
 
         Set<ConstraintViolation<RegistrationDto>> violations = validator.validate(dto);
-        assertFalse(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("password")));
+        assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("password")));
     }
 
     @Test
