@@ -23,9 +23,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     http
         .csrf(csrf -> csrf
             .ignoringRequestMatchers(
-                new AntPathRequestMatcher("/h2-console/**"),
-                new AntPathRequestMatcher("/register") 
-            )
+                new AntPathRequestMatcher("/h2-console/**")            )
         )
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
