@@ -17,6 +17,7 @@ public class UserController {
     private static final String REGISTER_VIEW = "register";
     private static final String LOGIN_VIEW = "login";
     private static final String DASHBOARD_VIEW = "dashboard";
+    private static final String ERROR_USER = "error.user";
 
     private final UserService userService;
 
@@ -43,11 +44,11 @@ public class UserController {
             userService.registerNewUser(registrationDto);
         } catch (RuntimeException e) {
             if (e.getMessage().equals("Username already exists")) {
-                bindingResult.rejectValue("username", "error.user", "Username already exists");
+                bindingResult.rejectValue("username", ERROR_USER, "Username already exists");
             } else if (e.getMessage().equals("Email already exists")) {
-                bindingResult.rejectValue("email", "error.user", "Email already exists");
+                bindingResult.rejectValue("email", ERROR_USER, "Email already exists");
             } else {
-                bindingResult.rejectValue(null, "error.user", "Registration error");
+                bindingResult.rejectValue(null, ERROR_USER, "Registration error");
             }
             return REGISTER_VIEW;
         }
