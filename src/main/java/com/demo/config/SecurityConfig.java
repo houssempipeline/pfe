@@ -18,40 +18,40 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-@Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-       .csrf(csrf -> {
-    if (isDevEnvironment()) {
-        csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"));
-    }
-})
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-                new AntPathRequestMatcher("/"),
-                new AntPathRequestMatcher("/login"),
-                new AntPathRequestMatcher("/register"),
-                new AntPathRequestMatcher("/contact"),
-                new AntPathRequestMatcher("/h2-console/**"),
-                new AntPathRequestMatcher("/css/**"),
-                new AntPathRequestMatcher("/images/**"),
-                new AntPathRequestMatcher("/actuator/health")
-            ).permitAll()
-            .anyRequest().authenticated()
-        )
-        .formLogin(form -> form
-            .loginPage("/login")
-            .defaultSuccessUrl("/dashboard", true)
-            .permitAll()
-        )
-        .logout(logout -> logout
-            .logoutSuccessUrl("/login?logout")
-            .permitAll()
-        )
-        .headers(headers -> headers.frameOptions().sameOrigin());
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> {
+                if (isDevEnvironment()) {
+                    csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"));
+                }
+            })
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    new AntPathRequestMatcher("/"),
+                    new AntPathRequestMatcher("/login"),
+                    new AntPathRequestMatcher("/register"),
+                    new AntPathRequestMatcher("/contact"),
+                    new AntPathRequestMatcher("/h2-console/**"),
+                    new AntPathRequestMatcher("/css/**"),
+                    new AntPathRequestMatcher("/images/**"),
+                    new AntPathRequestMatcher("/actuator/health")
+                ).permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            )
+            .headers(headers -> headers.frameOptions().sameOrigin());
 
-    return http.build();
-}
+        return http.build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -84,5 +84,10 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 .authorities(List.of())
                 .build();
         };
+    }
+
+    private boolean isDevEnvironment() {
+        String activeProfile = System.getProperty("spring.profiles.active", "default");
+        return activeProfile.equals("dev");
     }
 }
