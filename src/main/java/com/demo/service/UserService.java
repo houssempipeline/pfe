@@ -3,6 +3,7 @@ package com.demo.service;
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
 import com.demo.dto.RegistrationDto;
+import com.demo.exception.UserRegistrationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.*;
@@ -27,13 +28,12 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Register a new user
     public User registerNewUser(RegistrationDto registrationDto) {
         if (userRepository.existsByUsername(registrationDto.getUsername())) {
-            throw new RuntimeException(USERNAME_EXISTS);
+            throw new UserRegistrationException(USERNAME_EXISTS);
         }
         if (userRepository.existsByEmail(registrationDto.getEmail())) {
-            throw new RuntimeException(EMAIL_EXISTS);
+            throw new UserRegistrationException(EMAIL_EXISTS);
         }
 
         User user = new User();
@@ -45,27 +45,24 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    // Get user by username (for use in controllers, etc.)
     public User getUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new RuntimeException(USER_NOT_FOUND);
+            throw new RuntimeException(USER_NOT_FOUND); // can also extract a new UserNotFoundException if needed
         }
         return user;
     }
 
-    // Get the current logged-in user
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new RuntimeException(USER_NOT_FOUND);
+            throw new RuntimeException(USER_NOT_FOUND); // same here
         }
         return user;
     }
 
-    // Load user by username for Spring Security
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
