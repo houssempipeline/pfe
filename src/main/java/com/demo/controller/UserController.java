@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
+    private static final String REGISTER_VIEW = "register";
+    private static final String LOGIN_VIEW = "login";
+    private static final String DASHBOARD_VIEW = "dashboard";
+
     private final UserService userService;
 
     @Autowired
@@ -24,7 +28,7 @@ public class UserController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new RegistrationDto());
-        return "register";
+        return REGISTER_VIEW;
     }
 
     @PostMapping("/register")
@@ -32,9 +36,9 @@ public class UserController {
                                BindingResult bindingResult,
                                Model model) {
         if (bindingResult.hasErrors()) {
-            return "register";
+            return REGISTER_VIEW;
         }
-    
+
         try {
             userService.registerNewUser(registrationDto);
         } catch (RuntimeException e) {
@@ -45,22 +49,22 @@ public class UserController {
             } else {
                 bindingResult.rejectValue(null, "error.user", "Registration error");
             }
-            return "register";
+            return REGISTER_VIEW;
         }
-    
+
         return "redirect:/login?success";
     }
+
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login";
+        return LOGIN_VIEW;
     }
 
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        return "dashboard";
+        return DASHBOARD_VIEW;
     }
-    
-
 }
+
     
