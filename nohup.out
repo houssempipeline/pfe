@@ -1,0 +1,88 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  0.222 s
+[[1;34mINFO[m] Finished at: 2025-03-27T05:11:01Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Could not find goal 'run~' in plugin org.springframework.boot:spring-boot-maven-plugin:2.7.8 among available goals build-image, build-info, help, repackage, run, start, stop -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoNotFoundException
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------------< [0;36mcom.demo:DevSecOps[0;1m >-------------------------[m
+[[1;34mINFO[m] [1mBuilding DevSecOps 1.0.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.7.8:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mDevSecOps[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mDevSecOps[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.10.1:compile[m [1m(default-compile)[m @ [36mDevSecOps[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36mDevSecOps[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] skip non existing resourceDirectory /home/chonosus/DevSecOps/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.10.1:testCompile[m [1m(default-testCompile)[m @ [36mDevSecOps[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /home/chonosus/DevSecOps/target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mjacoco-maven-plugin:0.8.11:prepare-agent[m [1m(jacoco-initialize)[m @ [36mDevSecOps[0;1m ---[m
+[[1;34mINFO[m] argLine set to -javaagent:/home/chonosus/.m2/repository/org/jacoco/org.jacoco.agent/0.8.11/org.jacoco.agent-0.8.11-runtime.jar=destfile=/home/chonosus/DevSecOps/target/jacoco.exec
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.7.8:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mDevSecOps[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.7.8:run[m [1m(default-cli)[m @ [36mDevSecOps[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.8)
+
+2025-03-27 05:11:12.469  INFO 12883 --- [           main] com.demo.MyApp                           : Starting MyApp using Java 17.0.14 on masterserver with PID 12883 (/home/chonosus/DevSecOps/target/classes started by chonosus in /home/chonosus/DevSecOps)
+2025-03-27 05:11:12.471  INFO 12883 --- [           main] com.demo.MyApp                           : No active profile set, falling back to 1 default profile: "default"
+2025-03-27 05:11:13.135  INFO 12883 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7070 (http)
+2025-03-27 05:11:13.143  INFO 12883 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-27 05:11:13.143  INFO 12883 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2025-03-27 05:11:13.223  INFO 12883 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-27 05:11:13.223  INFO 12883 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 710 ms
+2025-03-27 05:11:13.462  WARN 12883 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 211acd92-0b77-498c-b766-089595a0c94d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-03-27 05:11:13.545  INFO 12883 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@22752544, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@21ba2445, org.springframework.security.web.context.SecurityContextPersistenceFilter@714f3da4, org.springframework.security.web.header.HeaderWriterFilter@72e295cc, org.springframework.security.web.csrf.CsrfFilter@14a049f9, org.springframework.security.web.authentication.logout.LogoutFilter@33634f04, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@216e9ca3, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@37c36608, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@69d23296, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@806996, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f53481b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2fcd7d3f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3c3820bb, org.springframework.security.web.session.SessionManagementFilter@6fa0450e, org.springframework.security.web.access.ExceptionTranslationFilter@6d11ceef, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7d78f3d5]
+2025-03-27 05:11:13.581  INFO 12883 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7070 (http) with context path ''
+2025-03-27 05:11:13.590  INFO 12883 --- [           main] com.demo.MyApp                           : Started MyApp in 1.429 seconds (JVM running for 1.667)
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  9.461 s
+[[1;34mINFO[m] Finished at: 2025-03-27T05:11:19Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------------< [0;36mcom.demo:DevSecOps[0;1m >-------------------------[m
+[[1;34mINFO[m] [1mBuilding DevSecOps 1.0.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.7.8:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mDevSecOps[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mDevSecOps[0;1m ---[m
