@@ -24,8 +24,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
         .csrf(csrf -> csrf
             .ignoringRequestMatchers(
                 new AntPathRequestMatcher("/h2-console/**"),
-                new AntPathRequestMatcher("/contact"), // if your contact page does POST
-                new AntPathRequestMatcher("/register") // if your register page does POST
+                new AntPathRequestMatcher("/register") 
             )
         )
         .authorizeHttpRequests(auth -> auth
