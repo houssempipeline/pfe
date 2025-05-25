@@ -19,11 +19,15 @@ import static org.mockito.Mockito.*;
 
 class UserControllerTest {
 
-    @Mock private UserService userService;
-    @Mock private Model model;
-    @Mock private BindingResult bindingResult;
+    @Mock
+    private UserService userService;
+    @Mock
+    private Model model;
+    @Mock
+    private BindingResult bindingResult;
 
-    @InjectMocks private UserController userController;
+    @InjectMocks
+    private UserController userController;
 
     @BeforeEach
     void setUp() {
@@ -64,7 +68,7 @@ class UserControllerTest {
     @CsvSource({
         "Username already exists,username,Username already exists",
         "Email already exists,email,Email already exists",
-        "Unexpected error,,Registration error"
+        "Something else,,Registration error"
     })
     void testRegisterUserExceptions(String exceptionMessage, String field, String expectedMessage) {
         RegistrationDto dto = new RegistrationDto();

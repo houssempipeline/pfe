@@ -9,6 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -41,7 +46,7 @@ class UserServiceTest {
         when(userRepository.existsByUsername("alice")).thenReturn(false);
         when(userRepository.existsByEmail("alice@example.com")).thenReturn(false);
         when(passwordEncoder.encode("password")).thenReturn("encoded");
-        User saved = new User("alice","alice@example.com","encoded",100.0);
+        User saved = new User("alice", "alice@example.com", "encoded", 100.0);
         when(userRepository.save(any(User.class))).thenReturn(saved);
 
         User result = userService.registerNewUser(dto);
@@ -80,5 +85,56 @@ class UserServiceTest {
 
         assertThrows(RuntimeException.class, () -> userService.registerNewUser(dto));
         verify(userRepository, never()).save(any(User.class));
+    }
+
+    @Test
+    void testGetCurrentUserSuccess() {
+        User mockUser = new User("john", "john@example.com", "encoded", 200.0);
+
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn("john");
+
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+
+        SecurityContextHolder.setContext(securityContext);
+        when(userRepository.findByUsername("john")).thenReturn(mockUser);
+
+        User result = userService.getCurrentUser();
+        assertEquals("john", result.getUsername());
+        assertEquals("john@example.com", result.getEmail());
+    }
+
+    @Test
+    void testGetCurrentUserNotFound() {
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn("ghost");
+
+        SecurityContext context = mock(SecurityContext.class);
+        when(context.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(context);
+
+        when(userRepository.findByUsername("ghost")).thenReturn(null);
+
+        assertThrows(RuntimeException.class, () -> userService.getCurrentUser());
+    }
+
+    @Test
+    void testLoadUserByUsernameSuccess() {
+        User user = new User("john", "john@example.com", "encoded", 200.0);
+        when(userRepository.findByUsername("john")).thenReturn(user);
+
+        UserDetails userDetails = userService.loadUserByUsername("john");
+
+        assertEquals("john", userDetails.getUsername());
+        assertEquals("encoded", userDetails.getPassword());
+        assertTrue(userDetails.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("USER")));
+    }
+
+    @Test
+    void testLoadUserByUsernameNotFound() {
+        when(userRepository.findByUsername("ghost")).thenReturn(null);
+        assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername("ghost"));
     }
 }

@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(WebController.class)
-@Import(TestSecurityConfig.class)
+@Import(TestSecurityConfig.class) // This is required if your app has Spring Security
 class WebControllerTest {
 
     @Autowired
