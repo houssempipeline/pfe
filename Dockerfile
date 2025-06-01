@@ -1,14 +1,15 @@
-# Use an official OpenJDK base image
-FROM openjdk:17
-# Set the working directory in the container
+# Use a minimal and secure OpenJDK base image (Alpine-based)
+FROM eclipse-temurin:17-jre-alpine
+
+# Create app directory
 WORKDIR /app
 
-# Copy the jar file from your target directory to the container
+# Copy only the final JAR artifact
 COPY target/DevSecOps-1.0.0-SNAPSHOT.jar app.jar
 
-# Command to run your app
+# Run the JAR using Java
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
-
-#Expose port 7070
+# Expose the port your Spring Boot app uses
 EXPOSE 7070
+
