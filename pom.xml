@@ -61,16 +61,16 @@
             <version>3.1.2.RELEASE</version>
         </dependency>
 
-        <!-- Manually pinned secure versions -->
+        <!-- Pinned Safe Versions -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
-            <version>6.2.4</version>
+            <version>6.2.7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>6.2.4</version>
+            <version>6.2.7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>10.1.35</version>
+            <version>10.1.41</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
