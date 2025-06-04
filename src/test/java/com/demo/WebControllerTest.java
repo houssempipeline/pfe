@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(WebController.class)
@@ -47,6 +48,18 @@ class WebControllerTest {
     @DisplayName("GET /contact should return contact view")
     void testContactView() throws Exception {
         mockMvc.perform(get("/contact").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("contact"));
+    }
+
+    @Test
+    @DisplayName("POST /contact should process form and return contact view")
+    void testHandleContactForm() throws Exception {
+        mockMvc.perform(post("/contact")
+                .param("name", "Test User")
+                .param("email", "test@example.com")
+                .param("message", "Hello")
+                .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("contact"));
     }
