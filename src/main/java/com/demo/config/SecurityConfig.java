@@ -52,6 +52,9 @@ public class SecurityConfig {
             )
             .headers(headers -> headers
                 .frameOptions(FrameOptionsConfig::sameOrigin)
+                .contentSecurityPolicy(csp -> csp
+                    .policyDirectives("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-ancestors 'self'")
+                )
             );
 
         return http.build();
