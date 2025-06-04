@@ -2,6 +2,11 @@ package com.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 @Controller
 public class WebController {
@@ -25,4 +30,13 @@ public class WebController {
     public String contact() {
         return "contact";
     }
+    @PostMapping("/contact")
+    public String handleContactForm(@RequestParam String name,
+                                @RequestParam String email,
+                                @RequestParam String message,
+                                Model model) {
+    // You can log or process the message here
+    model.addAttribute("msg", "Your message has been received. Thank you!");
+    return "contact";
+}
 }
