@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,7 +46,7 @@ class WebControllerTest {
     @Test
     @DisplayName("GET /contact should return contact view")
     void testContactView() throws Exception {
-        mockMvc.perform(get("/contact"))
+        mockMvc.perform(get("/contact").with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("contact"));
     }
