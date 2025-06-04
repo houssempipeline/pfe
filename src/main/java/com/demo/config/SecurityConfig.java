@@ -53,7 +53,7 @@ public class SecurityConfig {
             .headers(headers -> headers
                 .frameOptions(FrameOptionsConfig::sameOrigin)
                 .contentSecurityPolicy(csp -> csp
-                    .policyDirectives("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-ancestors 'self'")
+                    .policyDirectives("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action 'self'; frame-ancestors 'self'")
                 )
             );
 
@@ -90,3 +90,4 @@ public class SecurityConfig {
         return activeProfile.equals("dev");
     }
 }
+
