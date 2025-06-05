@@ -2,6 +2,8 @@ package com.demo.config;
 
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
+import jakarta.servlet.SessionTrackingMode;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,13 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.List;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.SessionTrackingMode;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
-
 import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -94,12 +91,12 @@ public class SecurityConfig {
                 .build();
         };
     }
+
     @Bean
     public ServletContextInitializer disableUrlSessionTracking() {
-        return servletContext -> servletContext.setSessionTrackingModes(
-        Collections.singleton(SessionTrackingMode.COOKIE)
-    );
-}
+        return servletContext ->
+            servletContext.setSessionTrackingModes(Collections.singleton(SessionTrackingMode.COOKIE));
+    }
 
     private boolean isDevEnvironment() {
         String activeProfile = System.getProperty("spring.profiles.active", "default");
