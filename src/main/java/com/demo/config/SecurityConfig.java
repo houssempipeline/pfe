@@ -18,6 +18,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.List;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.SessionTrackingMode;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+
+import java.util.Collections;
+
 @Configuration
 public class SecurityConfig {
 
@@ -88,6 +94,12 @@ public class SecurityConfig {
                 .build();
         };
     }
+    @Bean
+    public ServletContextInitializer disableUrlSessionTracking() {
+        return servletContext -> servletContext.setSessionTrackingModes(
+        Collections.singleton(SessionTrackingMode.COOKIE)
+    );
+}
 
     private boolean isDevEnvironment() {
         String activeProfile = System.getProperty("spring.profiles.active", "default");
